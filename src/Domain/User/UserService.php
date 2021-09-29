@@ -59,7 +59,7 @@ class UserService
         return $user;
     }
 
-    protected function hashPassword(string $password)
+    protected function hashPassword(string $password): string
     {
         //@TODO inject password encoder instead of this method
         return $password;
