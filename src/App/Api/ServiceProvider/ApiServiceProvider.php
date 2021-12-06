@@ -64,4 +64,9 @@ class ApiServiceProvider extends AbstractServiceProvider
         );
         $container->add(UidFactoryInterface::class, MongoUidFactory::class);
     }
+
+    public function provides(string $id): bool
+    {
+        return in_array($id, $this->provides, true);
+    }
 }
