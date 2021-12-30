@@ -15,16 +15,19 @@ $container = new Container();
 
 $app = LeagueApplicationFactoryAdapter::create($container);
 
-$container->addServiceProvider(ApiServiceProvider::class);
+$container->addServiceProvider(new ApiServiceProvider());
 
-$app->map('GET', '/', function (ServerRequestInterface $request) {
+/** @var Whirlwind\App\Router\Adapter\LeagueRouterAdapter $router */
+$router = $container->get(\Whirlwind\App\Router\RouterInterface::class);
+$router->map('GET', '/', function (ServerRequestInterface $request) {
     return new \Laminas\Diactoros\Response\JsonResponse([
         'title'   => 'My New Simple API',
         'version' => 1,
     ]);
 });
-$app->map('GET', '/users/{id}', \App\Api\Action\User\UserViewAction::class);
-$app->map('GET', '/users', \App\Api\Action\User\UserIndexAction::class);
-$app->map('POST', '/users', \App\Api\Action\User\UserCreateAction::class);
+
+$router->map('GET', '/users/{id}', \App\Api\Action\User\UserViewAction::class);
+$router->map('GET', '/users', \App\Api\Action\User\UserIndexAction::class);
+$router->map('POST', '/users', \App\Api\Action\User\UserCreateAction::class);
 
 $app->run();
