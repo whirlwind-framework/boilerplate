@@ -10,9 +10,9 @@ use App\Api\Http\Request\UserCreateDtoFactory;
 
 class UserService
 {
-    protected $domainService;
+    protected DomainService $domainService;
 
-    protected $userCreateDtoFactory;
+    protected UserCreateDtoFactory $userCreateDtoFactory;
 
     public function __construct(
         DomainService $domainService,

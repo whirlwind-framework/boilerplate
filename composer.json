@@ -17,7 +17,7 @@
     "minimum-stability": "dev",
     "require": {
         "whirlwind-framework/framework": "*",
-        "vlucas/phpdotenv": "^2.0",
+        "vlucas/phpdotenv": "^5.4",
         "spiral/roadrunner": "v2.2.0"
     },
     "require-dev": {
