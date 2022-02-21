@@ -22,6 +22,10 @@ class UserService
         $this->userCreateDtoFactory = $userCreateDtoFactory;
     }
 
+    /**
+     * @throws \Domain\User\Exception\UserUniqueException
+     * @throws \Whirlwind\Domain\Validation\Exception\ValidateException
+     */
     public function create(ServerRequestInterface $request): User
     {
         $dto = $this->userCreateDtoFactory->create($request);

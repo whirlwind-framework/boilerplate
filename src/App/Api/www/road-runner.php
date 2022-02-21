@@ -15,14 +15,14 @@ $worker = new Spiral\RoadRunner\Http\PSR7Worker(
     new Laminas\Diactoros\UploadedFileFactory
 );
 
-$dotenv = new Dotenv(dirname(dirname(__DIR__)));
+$dotenv = Dotenv::createImmutable(dirname(__DIR__, 2));
 $dotenv->load();
 
 $container = new Container();
 
 $app = LeagueApplicationFactoryAdapter::create($container);
 
-$container->addServiceProvider(ApiServiceProvider::class);
+$container->addServiceProvider(new ApiServiceProvider());
 
 $app->map('GET', '/', function (ServerRequestInterface $request) {
     return new \Laminas\Diactoros\Response\JsonResponse([

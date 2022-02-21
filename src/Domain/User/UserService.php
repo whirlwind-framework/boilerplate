@@ -39,6 +39,10 @@ class UserService
         return $this->repository->findUsers($conditions = [], $order = [], $limit = 0, $offset = 0);
     }
 
+    /**
+     * @throws UserUniqueException
+     * @throws \Whirlwind\Domain\Validation\Exception\ValidateException
+     */
     public function createUser(UserCreateDto $dto): User
     {
         $this->createScenario->validateDto($dto);

@@ -8,7 +8,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Whirlwind\App\Application\Adapter\LeagueApplicationFactoryAdapter;
 use App\Api\ServiceProvider\ApiServiceProvider;
 
-$dotenv = new Dotenv(dirname(dirname(__DIR__)));
+$dotenv = Dotenv::createImmutable(dirname(__DIR__, 2));
 $dotenv->load();
 
 $container = new Container();
