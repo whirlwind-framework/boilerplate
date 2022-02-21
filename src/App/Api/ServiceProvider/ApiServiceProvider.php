@@ -44,7 +44,7 @@ class ApiServiceProvider extends AbstractServiceProvider
                     $container->get(MongoCommandFactory::class),
                     $container->get(MongoQueryBuilderFactory::class),
                     $container->get(MongoDatabaseFactory::class),
-                    \getenv('MONGODB_DSN')
+                    $_ENV['MONGODB_DSN']
                 );
             }
         )->setShared();
