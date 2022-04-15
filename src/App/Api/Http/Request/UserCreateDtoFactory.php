@@ -17,11 +17,11 @@ class UserCreateDtoFactory extends RequestDtoFactory
     {
         $data = $request->getParsedBody();
         return [
-            'email' => $data['email'] ?? '',
-            'firstName' => $data['firstName'] ?? '',
-            'lastName' => $data['lastName'] ?? '',
-            'password' => $data['password'] ?? '',
-            'passwordVerify' => $data['password2'] ?? '',
+            'email' => htmlspecialchars($data['email']) ?? '',
+            'firstName' => htmlspecialchars($data['firstName']) ?? '',
+            'lastName' => htmlspecialchars($data['lastName']) ?? '',
+            'password' => htmlspecialchars($data['password']) ?? '',
+            'passwordVerify' => htmlspecialchars($data['password2']) ?? '',
         ];
     }
 }

@@ -17,8 +17,11 @@
     "minimum-stability": "dev",
     "require": {
         "whirlwind-framework/framework": "*",
+        "whirlwind-framework/middleware-uuid": "dev-main",
         "vlucas/phpdotenv": "^5.4",
-        "spiral/roadrunner": "v2.2.0"
+        "spiral/roadrunner": "v2.2.0",
+        "whirlwind-framework/middleware-exception-logger": "dev-main",
+        "whirlwind-framework/adapter-router-league": "dev-main"
     },
     "require-dev": {
         "dg/bypass-finals": "^1.2",
