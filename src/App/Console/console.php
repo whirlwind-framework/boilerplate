@@ -2,21 +2,25 @@
 
 include  __DIR__ . '/../../../vendor/autoload.php';
 
+use App\Console\Commands\CreateUserCommand;
+use App\Console\Commands\ListUsersCommand;
+use App\Console\ServiceProvider\ConsoleServiceProvider;
 use Dotenv\Dotenv;
 use League\Container\Container;
+use Whirlwind\App\Console\Application;
+use Whirlwind\App\Console\Request;
 
 $dotenv = Dotenv::createImmutable(dirname(__DIR__.'/../', 2));
 $dotenv->load();
 
 
 $container = new Container();
-$container->addServiceProvider(new \App\Console\ServiceProvider\ConsoleServiceProvider());
-$container->addServiceProvider(new \App\Console\ServiceProvider\UserServiceProvider());
 
-$container->add(\App\Console\Commands\CreateUserCommand::class)->addArgument($container->get(\Domain\User\UserService::class));
+$container->addServiceProvider(new ConsoleServiceProvider());
 
-$app = new \Whirlwind\App\Console\Application($container);
+$app = new Application($container);
 
-$app->addCommand('create/user', \App\Console\Commands\CreateUserCommand::class);
+$app->addCommand('users/create', CreateUserCommand::class);
+$app->addCommand('users/list', ListUsersCommand::class);
 
-$app->run(new \Whirlwind\App\Console\Request());
+$app->run(new Request());

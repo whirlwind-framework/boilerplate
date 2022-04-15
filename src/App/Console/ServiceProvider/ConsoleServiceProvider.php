@@ -8,13 +8,11 @@ use Infrastructure\Hydrator\UserHydrator;
 use Infrastructure\Repository\TableGateway\UserTableGateway;
 use Infrastructure\Repository\UserRepository;
 use League\Container\Container;
+use League\Container\ReflectionContainer;
 use League\Container\ServiceProvider\AbstractServiceProvider;
+use League\Container\ServiceProvider\BootableServiceProviderInterface;
 use Psr\Container\ContainerInterface;
 use Whirlwind\Domain\Factory\UidFactoryInterface;
-use Whirlwind\Domain\Validation\Factory\ValidatorCollectionFactory;
-use Whirlwind\Domain\Validation\Factory\ValidatorFactory;
-use Whirlwind\Infrastructure\Persistence\Mongo\Query\MongoQueryFactory;
-use Whirlwind\Infrastructure\Persistence\Mongo\Structure\MongoCollectionFactory;
 use Whirlwind\Infrastructure\Persistence\Mongo\UidFactory\MongoUidFactory;
 use Whirlwind\Infrastructure\Hydrator\Accessor\AccessorInterface;
 use Whirlwind\Infrastructure\Hydrator\Accessor\PropertyAccessor;
@@ -23,7 +21,7 @@ use Whirlwind\Infrastructure\Persistence\Mongo\MongoConnection;
 use Whirlwind\Infrastructure\Persistence\Mongo\Structure\MongoDatabaseFactory;
 use Whirlwind\Infrastructure\Persistence\Mongo\Query\MongoQueryBuilderFactory;
 
-class ConsoleServiceProvider extends AbstractServiceProvider
+class ConsoleServiceProvider extends AbstractServiceProvider implements BootableServiceProviderInterface
 {
     protected $provides = [
         ContainerInterface::class,
@@ -32,6 +30,13 @@ class ConsoleServiceProvider extends AbstractServiceProvider
         UserRepositoryInterface::class,
         UidFactoryInterface::class
     ];
+
+    public function boot(): void
+    {
+        $this->getContainer()->delegate(
+            (new ReflectionContainer(false))
+        );
+    }
 
     public function register(): void
     {
@@ -42,15 +47,6 @@ class ConsoleServiceProvider extends AbstractServiceProvider
             ContainerInterface::class,
             $container
         )->setShared();
-
-        $container->add(MongoCollectionFactory::class);
-        $container->add(MongoCommandFactory::class);
-        $container->add(MongoQueryBuilderFactory::class);
-        $container->add(MongoQueryFactory::class)->setShared();
-        $container->add(MongoDatabaseFactory::class)->addArgument($container->get(MongoCollectionFactory::class));
-
-        $container->add(ValidatorFactory::class);
-        $container->add(ValidatorCollectionFactory::class);
 
         $container->add(
             MongoConnection::class,

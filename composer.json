@@ -16,6 +16,7 @@
     "license": "BSD-3-Clause",
     "minimum-stability": "dev",
     "require": {
+        "ext-json": "*",
         "whirlwind-framework/framework": "*",
         "whirlwind-framework/middleware-uuid": "dev-main",
         "vlucas/phpdotenv": "^5.4",
